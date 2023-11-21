@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" modified="2023-11-21T04:10:08.773Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="tQbBZ4hfyb08v4CqpDtn" version="22.1.3" type="google">
+  <diagram name="Page-1" id="a6brBmYx3SfS9zhWFs5C">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9_KtrEjp7rrTaHtA-gIJ-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="9_KtrEjp7rrTaHtA-gIJ-1" target="9_KtrEjp7rrTaHtA-gIJ-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9_KtrEjp7rrTaHtA-gIJ-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="9_KtrEjp7rrTaHtA-gIJ-1" target="9_KtrEjp7rrTaHtA-gIJ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9_KtrEjp7rrTaHtA-gIJ-1" value="Remove background (anatomy diagrams)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="140" y="30" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="9_KtrEjp7rrTaHtA-gIJ-2" value="Pass the image (without background) to the Vision API" style="whiteSpace=wrap;html=1;rounded=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="470" y="30" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="9_KtrEjp7rrTaHtA-gIJ-4" value="&lt;b&gt;Step 1: Remove Shadow&lt;/b&gt;&lt;br&gt;&lt;ul&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Split image into 3 planes: Red, Green, Blue using split method of cv2 library.&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Apply dilation to replace the black strokes of anatomy diagrams with the white (dominant) color for each plane. It will not replace the black pixels of shadow with the white color as the pixels of shadow are continuously spread in a larger area having lesser impact of dilation on them. We are hiding strokes to preserve them while removing shadow pixels later on.&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Apply median blur to expose the dark shadow pixels.&lt;/li&gt;&lt;li style=&quot;text-align: left;&quot;&gt;Subtract the preprocessed image from the plane. It will make the white background black for the plane because the background color in preprocessed image is also white. The calculation goes like this: 255(plane_bg)-255(preprocessed_bg)=0(updated_plane_bg). The strokes in plane will become white. The calculation goes like this: 0(plane_strokes)-255(preprocessed_strokes)=255(updated_plane_strokes). Now, the shadow pixels in both, plane and preprocessed are of black color hence the calculation will go like this: 0(plane_shadow)-0(preprocessed_shadow)=0(updated_plane_shadow). Finally we will have background and shadow as black and strokes as white. We will invert the colors to make the background white and strokes(foreground) black.&lt;/li&gt;&lt;/ul&gt;" style="whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="230" width="520" height="300" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
